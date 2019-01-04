@@ -94,8 +94,81 @@ kleine Einflüsse.
     \item \textbf{LISTENABLEFUTURE}  Kombination aus Future und Callbacks
     \item \textbf{PROMISES}
 \end{itemize}
-\subsubsection{}
 
-\section{Exkurs Java-Script}
+\subsubsection{Event}
+Ein Ereignis (englisch Event) dient in der Softwaretechnik – bei Entwicklung nach dem ereignisorientieren Programmierparadigma – zur Steuerung des Programmflusses. Das Programm wird nicht linear durchlaufen, sondern es werden spezielle Ereignisbehandlungsroutinen (engl. listener, observer, event handler) immer dann ausgeführt, wenn ein bestimmtes Ereignis auftritt. Ereignisorientierte Programmierung gehört zu den parallelen Programmiertechniken, hat also deren Vor- und Nachteile.
+\begin{itemize}
+    \item + Sehr einfach neue Systeme umzusetzten 
+    \item + Jedes abhängige System kann seine Sicht auf die Daten vorhalten. Vermeidung von „Resource contention”
+    \item - Es ist nicht einfach, festzustellen, welche Systeme voneinander abhängen
+    \item - Konsistenz: Die Datenmodelle sind nur noch „eventually consistent”
+\end{itemize}
+$\Rightarrow$ Events werden generiert wenn eine Veränderung am Datenmodell vorgenommen wurde. 
+\subsection{Architektur Dokumentieren}
+\subsubsection{Wie viel Architektur Dokumentation ist sinnvoll?}
+Man muss berücksichtigen:
+\begin{itemize}
+    \item Nutzen des Dokuments für Entwickler, neue Mitglieder des Teams, etc.
+    \item Den Aufwand, das Dokument zu pflegen
+\end{itemize}
+$\Rightarrow$ Wägen Sie für jedes Projekt ab, welche Dokumentation sinnvoll ist.
+\subsubsection{Feste Gliederung}
+\textbf{Vorteile}: Einheitliche Gliederung für alle Autoren mit einfacher Vollständigkeitssicherung. Neue Mitglieder und Reviews einfacher. \\
+\textbf{Nachteile}: Form über Inhalt, Vollständigkeitsmengel\\
+\subsubsection{arc42}
+\begin{itemize}
+    \item Aufgabenstellung: Architektur Dokumentation über Schach-Engine
+    $\Rightarrow$ Feauters sind Schachregeln, Taktiken, User vs AI oder AI vs AI, Integration
+    \item Qualitätsziele
+    $\Rightarrow$ Analysierbarkeit, Änderbarkeit, Interoperabilität, Attraktivität
+    \item Stakeholder
+    $\Rightarrow$
+\end{itemize}
+
+\subsection{Testen und Verifizieren}
+\subsubsection{Software-Qualitätssicherung}
+Fehler können immer auftreten. Dazu werden Softwar-Prüfungen durchgeführt, um die Qualität noch weiter zu verbessern. Man unterscheidet zwischen:
+\begin{itemize}
+    \item Dynamischen Tests\\
+    $\Rightarrow$ Manuelles Testen des Menschen\\ 
+    $\Rightarrow$ Automatisches testen von einem Rechner
+    \item Statische Tests\\
+    $\Rightarrow$ Manuelle Verfahren sind dabei Verifikationen und Code Reviews\\
+    $\Rightarrow$ Auomatische Verfahren können Coding Conventions, statische Analysen oder automatische Verifikationen sein
+\end{itemize}
+$\Rightarrow$ Das Ziel ist möglichst viele Fehler zu finden und diese zu reparieren.
+\subsubsection{Fehler - Definition und Abgrenzung}
+\begin{table}[h]
+    \begin{tabular}{|l|l|l|} \hline
+Begriff & Erklärung & Erkennbarkeit/Lösung \\\hline
+Fehlerbedienung & Falsche Bedienung durch Nutzer & Handbuch/Fehlermeldung\\\hline
+Defekt & Fehlerhafte Stelle &               \\\hline
+    \end{tabular}
+\end{table}
+\subsubsection{Vom Fehler zum Defekt}
+Das Allgemeine Vorgehen zum Lösen eines Fehlers
+\begin{enumerate}
+    \item Breakpoint setzten und Fehlverhalten immer weiter eingrenzen
+    $\Rightarrow$ Oft gibt es viele Infizierte Stellen
+    \item Je größer die Software, desto schwerer ist abzuschätzen wo der Fehler ist.
+    \item 
+    \item 
+\end{enumerate}
+\subsubsection{Korellation vs Kausalität}
+Korellation: Zwei oder mehrere Merkmale müssen keine Beziehung zueinander haben. Sie beeinflussen sich gegenseitg nicht, können aber eine Zufällige Beziehung zueinander haben.
+Kausalität: Eine Ursache-Wirkung Beziehung, betrifft also die Abfolge aufeinander bezogener Ereignisse und Zustände.
+\subsubsection{Defekte finden}
+\begin{enumerate}
+    \item \textbf{Asserts}: 
+    Teil eines Programms welches eine Erwartung ausdrückt. Speicherstellen werden gegen erwartete Werte getestet. (In Java mit 'assert + boolschen Ausdruck' oder mit Assert.statischeMethoden(boolean))\\
+    $\Rightarrow$ Aber keine zu (zeit)aufwendigen Asserts, da bei einer Aktivierung der Asserts ein veränderter Zeitlicher Ablauf stattfinden kann.
+    \item \textbf{Unit-Tests}: 
+    \item \textbf{Integrations-Tests}:
+    \item \textbf{Logs/Tracers}:
+\end{enumerate}
+\subsection{Java Modelling Language (JML)}
+Mithilfe von JML können Vor- und Nachbedingungen 
+
+\subsubsection{Funktionsorientierte Tests}
 
 \end{document}
