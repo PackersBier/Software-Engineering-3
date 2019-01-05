@@ -2,7 +2,31 @@
 \usepackage[ngerman]{babel}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{graphicx} 
+\usepackage{graphicx}
+\usepackage{underscore}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+	language=Java,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3
+}
 
 \title{Software Engineering 3}
 \author{Benjamin Altmiks}
@@ -52,7 +76,7 @@ Architekturmuster versuchen eine grundlegede Organisation und Interaktion zwisch
 \textbf{Model-View-Controller}\newline
 Einteilung in drei Komponenten:
 \begin{enumerate}
-    \item Datenmodell (model): Enthält die Daten die dargestellt werden. Ist unabhängig von anderens
+    \item Datenmodell (model): Enthält die Daten die dargestellt werden. Ist unabhängig von anderen
     \item Präsentation (view): Darstellung der Daten des Modells mit Benutzerinteraktion
     \item Programmsteuerung (controller): Benutzerinteraktionen verwaltet Präsentation und Datenmodell
 \end{enumerate}
@@ -125,27 +149,39 @@ $\Rightarrow$ Wägen Sie für jedes Projekt ab, welche Dokumentation sinnvoll is
     $\Rightarrow$
 \end{itemize}
 
-\subsection{Testen und Verifizieren}
-\subsubsection{Software-Qualitätssicherung}
-Fehler können immer auftreten. Dazu werden Softwar-Prüfungen durchgeführt, um die Qualität noch weiter zu verbessern. Man unterscheidet zwischen:
+\section{Testen und Verifizieren}
+\subsection{Allgemein}
+\subsubsection{Fehlerarten}
+Grundsätzlich müssen die verschiedenen Fehlern untereinander abgegrenzt werden. 
 \begin{itemize}
-    \item Dynamischen Tests\\
-    $\Rightarrow$ Manuelles Testen des Menschen\\ 
-    $\Rightarrow$ Automatisches testen von einem Rechner
-    \item Statische Tests\\
-    $\Rightarrow$ Manuelle Verfahren sind dabei Verifikationen und Code Reviews\\
-    $\Rightarrow$ Auomatische Verfahren können Coding Conventions, statische Analysen oder automatische Verifikationen sein
+	\item Fehlbedienung: "Die bedienende Person verwendet das Programm nicht wie vorgesehen. Ein Person macht einen Fehler." 
+	\footnote{Prof. Dr. Phillip Heidegger: "'Software-Engineering 3", S. 213}
+	\item Defekt: "Fehlerhafte Stelle des Programms, die ein Fehlverhalten auslösen kann. Die Anwendung enthält einen Fehler." \footnote{Prof. Dr. Phillip Heidegger: "'Software-Engineering 3", S. 213}
+	\item Fehler: "Fehlverhalten eines Programms gegenüber der Spezifikation, dass während seiner Ausführung auftritt. Die Anwendung zeigt einen Fehler."
+	\footnote{Prof. Dr. Phillip Heidegger: "'Software-Engineering 3", S. 213}
+	\item Infektion: 
+\end{itemize}
+
+\subsubsection{Testtechniken}
+Es wird zwischen der statischen und der dynamischen Testtechnik unterschieden. 
+\footnote{vgl. dazu https://www.software-testing.academy/software-testing-methoden.html}
+\begin{itemize}
+	\item Dynamischen Tests: Ausführen des Programms
+	\begin{itemize}
+		\item Execution-Based-Method
+		\item Kontrollierte Ausführung der zu testenden Software mit Erstellung von Testfällen mit konkreter Eingabe und zu erwartenden Ausgabe
+		\item BlackBox-Technik, WhiteBox-Technik
+	\end{itemize}
+    \item Statische Tests: Anschauen des Programmcodes
+    \begin{itemize}
+    	\item Non-Execution-Based-Method
+    	\item Erstellung von Code Reviews oder werkzeuggestützter statischer Analysen
+    	\item Nutzung der menschlichen Denk- und Analysefähigkeiten
+    \end{itemize}
 \end{itemize}
 $\Rightarrow$ Das Ziel ist möglichst viele Fehler zu finden und diese zu reparieren.
-\subsubsection{Fehler - Definition und Abgrenzung}
-\begin{table}[h]
-    \begin{tabular}{|l|l|l|} \hline
-Begriff & Erklärung & Erkennbarkeit/Lösung \\\hline
-Fehlerbedienung & Falsche Bedienung durch Nutzer & Handbuch/Fehlermeldung\\\hline
-Defekt & Fehlerhafte Stelle &               \\\hline
-    \end{tabular}
-\end{table}
-\subsubsection{Vom Fehler zum Defekt}
+\newpage
+\subsection{Lösung eines Fehlers}
 Das Allgemeine Vorgehen zum Lösen eines Fehlers
 \begin{enumerate}
     \item Breakpoint setzten und Fehlverhalten immer weiter eingrenzen
@@ -154,21 +190,61 @@ Das Allgemeine Vorgehen zum Lösen eines Fehlers
     \item 
     \item 
 \end{enumerate}
-\subsubsection{Korellation vs Kausalität}
-Korellation: Zwei oder mehrere Merkmale müssen keine Beziehung zueinander haben. Sie beeinflussen sich gegenseitg nicht, können aber eine Zufällige Beziehung zueinander haben.
-Kausalität: Eine Ursache-Wirkung Beziehung, betrifft also die Abfolge aufeinander bezogener Ereignisse und Zustände.
-\subsubsection{Defekte finden}
-\begin{enumerate}
-    \item \textbf{Asserts}: 
-    Teil eines Programms welches eine Erwartung ausdrückt. Speicherstellen werden gegen erwartete Werte getestet. (In Java mit 'assert + boolschen Ausdruck' oder mit Assert.statischeMethoden(boolean))\\
-    $\Rightarrow$ Aber keine zu (zeit)aufwendigen Asserts, da bei einer Aktivierung der Asserts ein veränderter Zeitlicher Ablauf stattfinden kann.
-    \item \textbf{Unit-Tests}: 
-    \item \textbf{Integrations-Tests}:
-    \item \textbf{Logs/Tracers}:
-\end{enumerate}
-\subsection{Java Modelling Language (JML)}
-Mithilfe von JML können Vor- und Nachbedingungen 
+\newpage
+\subsection{Korellation vs Kausalität}
+\subsubsection{Korellation}
+Zwei oder mehrere Merkmale müssen keine Beziehung zueinander haben. Sie beeinflussen sich gegenseitig nicht, können aber eine Zufällige Beziehung zueinander haben.
+\subsubsection{Kausalität}
+Eine Ursache-Wirkung Beziehung, betrifft also die Abfolge aufeinander bezogener Ereignisse und Zustände.
+\newpage
 
+\subsection{Assert}
+    Ein Assert ist Teil eines Programms, welches eine Erwartung ausdrückt. Speicherstellen werden gegen erwartete Werte getestet. Dadurch können Programmfehler zur Laufzeit beim Anwender entdeckt werden. Es wird versucht die erste Infektion im Programm zu finden, um damit die Ursache im Code zu schließen.\\
+    Einfaches Beispiel in Java:
+    \footnote{vgl. dazu http://www.linkfang.de/wiki/Assertion_(Informatik)}
+    \begin{lstlisting}
+    int n = readInput(); 
+    n = n * n; //Quadrieren 
+    assert n >= 0;
+    \end{lstlisting}
+    Mit dieser Assertion sagt der Programmierer: "' Ich bin mir sicher, dass nach dieser Stelle n größer gleich null ist".\\
+    $\Rightarrow$ "'Asserts können dazu beitragen, Infektionen klein zu halten,(...)"
+    \footnote{Prof. Dr. Phillip Heidegger: "'Software-Engineering 3", S. 225}
+	\\\textbf{Fail-Fast-Einsatz:}\\
+	Frühzeitige Erkennung von Fehlern um Schnittstellen abzusichern. (Eingrenzung von Distanz zwischen erster Infektion und Beobachtung)
+	\\\textbf{Design by Contact (Entwurf gemäß dem Vertrag):}\\ Definition formaler Verträge zur Verwendung von Schnittstellen. Dieser Vertrag besteht aus Vorbedingungen, Nachbedingungen und Invarianten(Invariant = Vor und nach Befehl Gültig). Asserts können Verträge für Methoden darstellen.
+	\\\textbf{Java Modelling Language (JML):}\\
+	Eine Alternative Möglichkeit zu Asserts zur Angabe von Vorbedingungen, Nachbedingungen und Invarianten ist die JML, die ihre eigene Annotation besitzt. Aus dieser Annotation können dann Asserts, Java-Docs, Unit-Tests, Verifikationen oder Statische Analysen gebildet werden.
+	\begin{lstlisting}
+	// @ <JML-Spezifikation>
+	\end{lstlisting}
+
+\newpage
+\subsection{Testausführung}
+\subsubsection{Manuelle Tests}
+\subsection{Testgrößen}
+\subsubsection{Unit-Test (Modultest)}
+Ein Modultest wird verwendet um die Funktionalität einzelner Module in einem Programm zu testen. Dabei wird nicht die ganze Software, sondern nur einzelne Komponente, betrachtet. Ein Einsatzgebiet ist dabei die Kernfunktionalität abzusichern. Dies ist auch umsetzbar, bevor das ganze System fertiggestellt ist.\\
+Einfaches Beispiel in JUnit/Java:
+\begin{lstlisting}
+import static org . junit . jupiter . api . Assertions . assertEquals ;
+import org. junit . jupiter . api . Test ;
+class FirstJUnit5Tests {
+	@Test 							//Annotation zum markieren der Tests
+	void myFirstTest () {
+		assertEquals (2 , 1 + 1) ;
+	}
+}
+\end{lstlisting}
+\subsubsection{Integrationstests}
+Ein Integrationstest ist eine Erweiterung zum Unit-Test. Er testet mehrere Module, die im Zusammenspiel korrekt funktionieren sollen. Dabei wird jedoch nicht das gesamte System (Systemtest), sondern nur ein Verbund aus Modulen getestet. Insgesamt wird versucht Fehler aufzudecken, dir durch die Kommunikation zwischen einzelnen Komponenten (bzw. Modulen) auftreten. Dies können zum Beispiel ungültige Ein- und Ausgabeparameter sein.
+\subsubsection{Systemtests}
+"'Systemtests überprüfen das Gesamtsystem unter möglichst realistischen Bedingungen(...). Es ist der abschließende Schritt einer ganzen Folge von Integrationstests zunehmend größerer Teilsysteme, in dem das Gesamtsystem mit der Interaktion seiner Teile und den bestehenden Abhängigkeiten den Untersuchungsgegenstand bildet."
+\footnote{vgl. dazu http://www.enzyklopaedie-der-wirtschaftsinformatik.de} 
+Dabei wird das gesamte System von außen bedient, d.h Benutzerinteraktion etc. wird simuliert.
+\subsection{Art und Weiße von Tests}
 \subsubsection{Funktionsorientierte Tests}
+
+\subsubsection{Strukturorientierte Tests}
 
 \end{document}
